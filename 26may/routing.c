@@ -30,21 +30,16 @@ int main()
             router[i].from[j] = j;
         }
     }
-
-    do
+    count = 0;
+    for (i = 0; i < nodes; i++)
+    for (j = 0; j < nodes; j++)
+    for (k = 0; k < nodes; k++)
+    if (router[i].dist[j] > costmat[i][k] + router[k].dist[j])
     {
-        count = 0;
-        for (i = 0; i < nodes; i++)
-            for (j = 0; j < nodes; j++)
-                for (k = 0; k < nodes; k++)
-                    if (router[i].dist[j] > costmat[i][k] + router[k].dist[j])
-                    {
-                        router[i].dist[j] = router[i].dist[k] + router[k].dist[j];
-                        router[i].from[j] = k;
-                        count++;
-                    }
-    } while (count != 0);
-
+        router[i].dist[j] = router[i].dist[k] + router[k].dist[j];
+        router[i].from[j] = k;
+        count++;
+    }
     for (i = 0; i < nodes; i++)
     {
         printf("To reach router(node) %d\n", i + 1);
